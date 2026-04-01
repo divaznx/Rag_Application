@@ -1,114 +1,43 @@
-# RAG System — OpenAI + ChromaDB
+🧠 Knowledge Base Manager Project
+The Knowledge Base Manager project is a comprehensive tool designed to manage and query a knowledge base using ChromaDB for retrieval and OpenAI for generation. The project provides a command-line interface for ingesting folders, checking the status of the knowledge base, and deleting folders. It also allows users to query the knowledge base interactively or using a single question.
 
-Two-program local RAG system.  
-`kb_manager.py` ingests folders → `rag_query.py` answers questions.
+🚀 Features
+Ingesting folders and processing files based on their extensions
+Extracting text from files and storing it in a ChromaDB database
+Providing a command-line interface for managing the knowledge base
+Using OpenAI's text-embedding-3-small model for text embedding
+Querying the knowledge base using ChromaDB for retrieval
+Generating answers using OpenAI's API
+🛠️ Tech Stack
+Frontend: None
+Backend: Python
+Database: ChromaDB
+AI Tools: OpenAI
+Build Tools: None
+Libraries:
+chromadb for database operations
+embedder for text embedding
+argparse for command-line argument parsing
+pathlib for file path manipulation
+json and hashlib for data processing
+openai for interacting with OpenAI's API
+dotenv for loading environment variables from a .env file
+📦 Installation
+To install the project, follow these steps:
 
----
+Clone the repository using git clone
+Install the required libraries using pip install -r requirements.txt
+Set up the environment variables in a .env file
+💻 Usage
+To use the project, follow these steps:
 
-## Setup
-
-```bash
-pip install chromadb openai python-dotenv
-```
-
-Create a `.env` file in the project folder:
-```
-OPENAI_API_KEY=sk-...
-```
-
----
-
-## Folder Structure
-
-```
-your_project/
-├── kb_manager.py       ← Program 1: ingest & manage knowledge base
-├── rag_query.py        ← Program 2: query & get answers
-├── embedder.py         ← Shared: OpenAI text-embedding-3-small
-├── .env                ← Your OpenAI API key (never commit this)
-│
-└── knowledge_base/     ← Auto-created on first ingest
-    ├── processed/      ← ChromaDB vector store
-    └── registry.json   ← Tracks which folders are already indexed
-```
-
----
-
-## kb_manager.py — Commands
-
-```bash
-# Ingest a folder (sub-folders = separate document groups)
-python kb_manager.py --ingest ./my_docs
-
-# Re-ingest same folder → already-indexed ones are skipped automatically
-python kb_manager.py --ingest ./my_docs
-
-# Force re-index everything (e.g. after changing chunk size)
-python kb_manager.py --ingest ./my_docs --force
-
-# Check what's indexed
-python kb_manager.py --status
-
-# Remove a folder from the index
-python kb_manager.py --delete folder_name
-```
-
----
-
-## rag_query.py — Commands
-
-```bash
-# Interactive shell
-python rag_query.py
-
-# Single question
-python rag_query.py --query "What is gradient descent?"
-
-# With options
-python rag_query.py --query "Explain asyncio" --folder python_notes --show-sources
-python rag_query.py --query "Summarise the docs" --model gpt-4o --top-k 8
-```
-
-### Interactive shell commands
-
-| Command            | What it does                        |
-|--------------------|-------------------------------------|
-| `/folder ml_notes` | Search only that folder             |
-| `/folder`          | Clear filter, search everything     |
-| `/sources on`      | Show retrieved chunks with answers  |
-| `/model gpt-4o`    | Switch to a different OpenAI model  |
-| `/topk 8`          | Retrieve more chunks per query      |
-| `/status`          | List all indexed folders            |
-| `/quit`            | Exit                                |
-
----
-
-## Models used
-
-| Purpose    | Model                    | Notes                        |
-|------------|--------------------------|------------------------------|
-| Embeddings | text-embedding-3-small   | Fast, cheap, 1536 dims       |
-| Generation | gpt-4o-mini (default)    | Change with --model flag     |
-| Generation | gpt-4o                   | Better quality, higher cost  |
-
----
-
-## Configuration (top of each file)
-
-**kb_manager.py**
-```python
-CHUNK_SIZE    = 800   # characters per chunk
-CHUNK_OVERLAP = 150   # overlap between chunks
-```
-
-**rag_query.py**
-```python
-DEFAULT_TOP_K     = 5       # chunks retrieved per query
-DEFAULT_MODEL     = "gpt-4o-mini"
-SIMILARITY_CUTOFF = 1.4     # cosine distance filter (lower = stricter)
-```
-
-**embedder.py**
-```python
-EMBEDDING_MODEL = "text-embedding-3-small"   # swap to text-embedding-3-large if needed
-```
+Run the kb_manager.py file to ingest folders and manage the knowledge base
+Run the rag_query.py file to query the knowledge base interactively or using a single question
+📂 Project Structure
+.
+├── main.py
+├── kb_manager.py
+├── embedder.py
+├── rag_query.py
+├── requirements.txt
+└── .env
