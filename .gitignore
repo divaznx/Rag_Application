@@ -11,6 +11,8 @@ __pycache__/
 venv/
 .venv/
 
+my_docs/
+
 # OS
 .DS_Store
 Thumbs.db
