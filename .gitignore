@@ -1,0 +1,16 @@
+# Environment & secrets
+.env
+
+# Knowledge base (vector store — rebuild from your docs)
+knowledge_base/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
